@@ -1,0 +1,19 @@
+# Render Blueprint — deploy this API as a free web service.
+# In Render: New + → Blueprint → connect the comeback-hq-api repo → Apply.
+# You'll be prompted to enter the two secret values (DATABASE_URL, JWT_SECRET);
+# CORS_ORIGIN is pre-filled below.
+services:
+  - type: web
+    name: comeback-hq-api
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL      # your Neon connection string (…?sslmode=require)
+        sync: false
+      - key: JWT_SECRET        # the long random string generated for you
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://vivek-borole.github.io
